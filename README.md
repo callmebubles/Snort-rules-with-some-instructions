@@ -12,4 +12,6 @@ Installed Snort using the guide found on the website https://binexishatt.medium.
   
   alert tcp any any -> any any (msg:”TCP Port Scanning”; detection_filter:track by_src, count 30, seconds 60; sid:1000005)
   
+For rules 1 and 2 those were samples given by our instructor Justin. For rule 3 I saw when I attempted to telnet in (whether to the Metasploitable VM or from the Metaspoitable VM) that it was TCP to port 23. I used google and found that most people suggested using size of 0 or time to minimize the number of alerts for possible ping sweeps/scanning. 
+
 I then opened wireshark from the command line using sudo and started recording. Opened the Metasploitable VM and ran an nmap scan, ping to host computer, as well as a telnet attempt. Ran Snort using "snort -k none -l ./logs/ -c ./fullstack.rules -r ./captured.pcap" to get my alerts. For my rules I did not specify my host machine as I then also ran Snort against the sample pcaps given. I then went into the logs directory to cat the alerts file. There I saw all the alerts for the scan based on my rules.
